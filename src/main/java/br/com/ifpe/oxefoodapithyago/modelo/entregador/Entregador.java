@@ -22,6 +22,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Entregador extends EntidadeAuditavel  {
     
     @Column(length = 50)
@@ -29,7 +30,7 @@ public class Entregador extends EntidadeAuditavel  {
     
     @Column
     private String cpf;
-
+    
     @Column
     private String rg;
     
@@ -38,37 +39,38 @@ public class Entregador extends EntidadeAuditavel  {
     
     @Column
     private String foneCelular;
-
+    
     @Column
     private String foneFixo;
-
+    
     @Column
     private int qtdEntregasRealizadas;
-
+    
     @Column
     private double valorPorFrete;
-
+    
     @Column
     private String rua;
-
+    
     @Column
     private String numero;
-
+    
     @Column
     private String bairro;
-
+    
     @Column
     private String cidade;
-
+    
     @Column
     private String cep;
-
+    
     @Column
     private String uf;
-
+    
     @Column
     private String complemento;
-
+    
     @Column
     private boolean ativo;
+
 }

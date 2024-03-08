@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefoodapithyago.modelo.cliente.Cliente;
-import br.com.ifpe.oxefoodapithyago.modelo.cliente.ClienteService;
+import br.com.ifpe.oxefoodapithyago.modelo.entregador.Entregador;
+import br.com.ifpe.oxefoodapithyago.modelo.entregador.EntregadorService;
 
 @RestController
-@RequestMapping("/api/cliente")
+@RequestMapping("/api/entregador")
 @CrossOrigin
 public class EntregadorController {
 
    @Autowired
-   private ClienteService clienteService;
+   private EntregadorService EntregadorService;
 
    @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody EntregadorRequest request) {
+   public ResponseEntity<Entregador> save(@RequestBody EntregadorRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
-       return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
+       Entregador entregador = EntregadorService.save(request.build());
+       return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);
    }
 }
