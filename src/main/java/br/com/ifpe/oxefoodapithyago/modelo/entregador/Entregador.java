@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.SQLRestriction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.ifpe.oxefoodapithyago.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,53 +25,54 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Entregador extends EntidadeAuditavel  {
-    
+public class Entregador extends EntidadeAuditavel {
+
     @Column(length = 50)
     private String nome;
-    
+
     @Column
     private String cpf;
-    
+
     @Column
     private String rg;
-    
+
     @Column
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
-    
+
     @Column
     private String foneCelular;
-    
+
     @Column
     private String foneFixo;
-    
+
     @Column
     private int qtdEntregasRealizadas;
-    
+
     @Column
     private double valorPorFrete;
-    
+
     @Column
     private String rua;
-    
+
     @Column
     private String numero;
-    
+
     @Column
     private String bairro;
-    
+
     @Column
     private String cidade;
-    
+
     @Column
     private String cep;
-    
+
     @Column
     private String uf;
-    
+
     @Column
     private String complemento;
-    
+
     @Column
     private boolean ativo;
 
