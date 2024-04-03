@@ -4,8 +4,6 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.ifpe.oxefoodapithyago.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +35,6 @@ public class Entregador extends EntidadeAuditavel {
     private String rg;
 
     @Column
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
     @Column
