@@ -1,19 +1,19 @@
 package br.com.ifpe.oxefoodapithyago.modelo.cliente;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import org.hibernate.annotations.SQLRestriction;
-
 import br.com.ifpe.oxefoodapithyago.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Entity
 @Table(name = "Cliente")
@@ -26,6 +26,9 @@ import lombok.Setter;
 
 public class Cliente extends EntidadeAuditavel  {
     
+    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<EnderecoCliente> enderecos;
+
     @Column(length = 50)
     private String nome;
     

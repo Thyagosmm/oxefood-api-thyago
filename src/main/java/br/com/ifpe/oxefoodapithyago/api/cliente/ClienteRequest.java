@@ -1,9 +1,7 @@
 package br.com.ifpe.oxefoodapithyago.api.cliente;
 
 import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import br.com.ifpe.oxefoodapithyago.modelo.cliente.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
