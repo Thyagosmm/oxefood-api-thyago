@@ -58,4 +58,14 @@ public class ProdutoController {
         produtoService.delete(id);
         return ResponseEntity.ok().build();
     }
+    @Operation(summary = "Serviço responsável por filtrar produtos no sistema.")
+    @PostMapping("/filtrar")
+   public List<Produto> filtrar(
+           @RequestParam(value = "codigo", required = false) String codigo,
+           @RequestParam(value = "titulo", required = false) String titulo,
+           @RequestParam(value = "idCategoria", required = false) Long idCategoria) {
+
+       return produtoService.filtrar(codigo, titulo, idCategoria);
+   }
+
 }
