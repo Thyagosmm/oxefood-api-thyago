@@ -22,7 +22,7 @@ public class ProdutoController {
     @Autowired
     private CategoriaProdutoService categoriaProdutoService;
 
-    @Operation(summary = "Serviço responsável por salvar um produto no sistema.")    
+    @Operation(summary = "Serviço responsável por salvar um produto no sistema.")
     @PostMapping
     public ResponseEntity<Produto> save(@RequestBody @Valid ProdutoRequest request) {
         Produto produtoNovo = request.build();
@@ -30,7 +30,7 @@ public class ProdutoController {
         Produto produto = produtoService.save(produtoNovo);
         return new ResponseEntity<>(produto, HttpStatus.CREATED);
     }
-    
+
     @Operation(summary = "Serviço responsável por listar todos os produtos do sistema.")
     @GetMapping
     public List<Produto> listarTodos() {
@@ -58,14 +58,15 @@ public class ProdutoController {
         produtoService.delete(id);
         return ResponseEntity.ok().build();
     }
+
     @Operation(summary = "Serviço responsável por filtrar produtos no sistema.")
     @PostMapping("/filtrar")
-   public List<Produto> filtrar(
-           @RequestParam(value = "codigo", required = false) String codigo,
-           @RequestParam(value = "titulo", required = false) String titulo,
-           @RequestParam(value = "idCategoria", required = false) Long idCategoria) {
+    public List<Produto> filtrar(
+            @RequestParam(value = "codigo", required = false) String codigo,
+            @RequestParam(value = "titulo", required = false) String titulo,
+            @RequestParam(value = "idCategoria", required = false) Long idCategoria) {
 
-       return produtoService.filtrar(codigo, titulo, idCategoria);
-   }
+        return produtoService.filtrar(codigo, titulo, idCategoria);
+    }
 
 }
