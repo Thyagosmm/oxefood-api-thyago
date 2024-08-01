@@ -14,7 +14,7 @@ public class ProdutoRequest {
 
     private Long idCategoria;
     private String titulo;
-    private String codigoDoProduto;
+    private String codigo;
     private String descricao;
     private Double valorUnitario;
     private Integer tempoDeEntregaMinimoEmMinutos;
@@ -23,7 +23,7 @@ public class ProdutoRequest {
     public Produto build() {
         return Produto.builder()
                 .titulo(titulo)
-                .codigoDoProduto(codigoDoProduto)
+                .codigo(codigo)
                 .descricao(descricao)
                 .valorUnitario(valorUnitario)
                 .tempoDeEntregaMinimoEmMinutos(tempoDeEntregaMinimoEmMinutos)

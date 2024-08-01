@@ -31,8 +31,8 @@ public class Produto extends EntidadeAuditavel {
     @Column(length = 100)
     private String titulo;
 
-    @Column(name = "codigo_do_produto")
-    private String codigoDoProduto;
+    @Column
+    private String codigo;
 
     @Column(length = 500)
     private String descricao;
