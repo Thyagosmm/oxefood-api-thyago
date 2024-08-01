@@ -56,52 +56,67 @@ public class ClienteService {
 
     @Transactional
     public EnderecoCliente adicionarEnderecoCliente(Long clienteId, EnderecoCliente endereco) {
- 
+
         Cliente cliente = this.obterPorID(clienteId);
 
         endereco.setCliente(cliente);
         endereco.setHabilitado(Boolean.TRUE);
         enderecoClienteRepository.save(endereco);
- 
+
         List<EnderecoCliente> listaEnderecoCliente = cliente.getEnderecos();
-       
+
         if (listaEnderecoCliente == null) {
             listaEnderecoCliente = new ArrayList<EnderecoCliente>();
         }
-        
+
         listaEnderecoCliente.add(endereco);
         cliente.setEnderecos(listaEnderecoCliente);
         cliente.setVersao(cliente.getVersao() + 1);
         repository.save(cliente);
-       
+
         return endereco;
     }
- 
+
     @Transactional
-   public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
+    public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
 
-       EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
-       endereco.setRua(enderecoAlterado.getRua());
-       endereco.setNumero(enderecoAlterado.getNumero());
-       endereco.setBairro(enderecoAlterado.getBairro());
-       endereco.setCep(enderecoAlterado.getCep());
-       endereco.setCidade(enderecoAlterado.getCidade());
-       endereco.setEstado(enderecoAlterado.getEstado());
-       endereco.setComplemento(enderecoAlterado.getComplemento());
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        endereco.setRua(enderecoAlterado.getRua());
+        endereco.setNumero(enderecoAlterado.getNumero());
+        endereco.setBairro(enderecoAlterado.getBairro());
+        endereco.setCep(enderecoAlterado.getCep());
+        endereco.setCidade(enderecoAlterado.getCidade());
+        endereco.setEstado(enderecoAlterado.getEstado());
+        endereco.setComplemento(enderecoAlterado.getComplemento());
 
-       return enderecoClienteRepository.save(endereco);
-   }
+        return enderecoClienteRepository.save(endereco);
+    }
 
-   @Transactional
-public void removerEnderecoCliente(Long id) {
+    @Transactional
+    public void removerEnderecoCliente(Long id) {
 
-    EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
-    endereco.setHabilitado(Boolean.FALSE);
-    enderecoClienteRepository.save(endereco);
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        endereco.setHabilitado(Boolean.FALSE);
+        enderecoClienteRepository.save(endereco);
 
-    Cliente cliente = this.obterPorID(endereco.getCliente().getId());
-    cliente.getEnderecos().remove(endereco);
-           cliente.setVersao(cliente.getVersao() + 1);
-    repository.save(cliente);
+        Cliente cliente = this.obterPorID(endereco.getCliente().getId());
+        cliente.getEnderecos().remove(endereco);
+        cliente.setVersao(cliente.getVersao() + 1);
+        repository.save(cliente);
+    }
+
+    public List<Cliente> filtrar(String cpf, String nome) {
+
+        List<Cliente> listaClientes = repository.findAll();
+
+        if ((cpf != null && !"".equals(cpf)) &&
+                (nome == null || "".equals(nome)))
+            listaClientes = repository.consultarPorCpf(cpf);
+        else if ((cpf == null || "".equals(cpf)) &&
+                (nome != null && !"".equals(nome))) {
+            listaClientes = repository.findByNomeContainingIgnoreCaseOrderByNomeAsc(nome);
+        }
+        return listaClientes;
     }
 }
+//findByNomeContainingIgnoreCaseOrderByNomeAsc(nome)
