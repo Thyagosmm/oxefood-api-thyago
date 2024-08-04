@@ -25,22 +25,22 @@ import lombok.Setter;
 
 public class Entregador extends EntidadeAuditavel {
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column
+    @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column
+    @Column(nullable = false, unique = true, length = 9)
     private String rg;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate dataNascimento;
 
-    @Column
+    @Column(length = 11)
     private String foneCelular;
 
-    @Column
+    @Column(length = 11)
     private String foneFixo;
 
     @Column
@@ -61,10 +61,10 @@ public class Entregador extends EntidadeAuditavel {
     @Column
     private String cidade;
 
-    @Column
+    @Column(length = 8)
     private String cep;
 
-    @Column
+    @Column(length = 2)
     private String uf;
 
     @Column

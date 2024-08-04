@@ -29,19 +29,24 @@ public class Cliente extends EntidadeAuditavel  {
     @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<EnderecoCliente> enderecos;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 100)
     private String nome;
     
-    @Column
+    @Column(nullable = false)
     private LocalDate dataNascimento;
     
-    @Column
+    @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column
+    @Column(length = 11)
     private String foneCelular;
 
-    @Column
+    @Column(length = 11)
     private String foneFixo;
+
+    public Cliente orElseThrow(Object object) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 
 }

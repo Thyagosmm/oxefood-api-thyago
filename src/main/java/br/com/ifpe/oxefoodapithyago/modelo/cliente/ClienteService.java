@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.ifpe.oxefoodapithyago.util.exception.ClienteException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -31,7 +32,8 @@ public class ClienteService {
 
     @Transactional
     public Cliente obterPorID(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        return repository.findById(id)
+                .orElseThrow(() -> new ClienteException("Cliente", id));
     }
 
     @Transactional
@@ -56,7 +58,6 @@ public class ClienteService {
 
     @Transactional
     public EnderecoCliente adicionarEnderecoCliente(Long clienteId, EnderecoCliente endereco) {
-
         Cliente cliente = this.obterPorID(clienteId);
 
         endereco.setCliente(cliente);
@@ -79,8 +80,8 @@ public class ClienteService {
 
     @Transactional
     public EnderecoCliente atualizarEnderecoCliente(Long id, EnderecoCliente enderecoAlterado) {
-
-        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteException("Endereço do Cliente", id));
         endereco.setRua(enderecoAlterado.getRua());
         endereco.setNumero(enderecoAlterado.getNumero());
         endereco.setBairro(enderecoAlterado.getBairro());
@@ -94,8 +95,8 @@ public class ClienteService {
 
     @Transactional
     public void removerEnderecoCliente(Long id) {
-
-        EnderecoCliente endereco = enderecoClienteRepository.findById(id).get();
+        EnderecoCliente endereco = enderecoClienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteException("Endereço do Cliente", id));
         endereco.setHabilitado(Boolean.FALSE);
         enderecoClienteRepository.save(endereco);
 
@@ -106,7 +107,6 @@ public class ClienteService {
     }
 
     public List<Cliente> filtrar(String cpf, String nome) {
-
         List<Cliente> listaClientes = repository.findAll();
 
         if ((cpf != null && !"".equals(cpf)) &&
@@ -119,4 +119,3 @@ public class ClienteService {
         return listaClientes;
     }
 }
-//findByNomeContainingIgnoreCaseOrderByNomeAsc(nome)
