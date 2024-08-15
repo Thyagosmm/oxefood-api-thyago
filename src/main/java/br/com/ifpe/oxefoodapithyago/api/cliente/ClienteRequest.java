@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.ifpe.oxefoodapithyago.modelo.acesso.Usuario;
 import br.com.ifpe.oxefoodapithyago.modelo.cliente.Cliente;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
@@ -44,7 +43,6 @@ public class ClienteRequest {
     private String foneFixo;
 
     @NotBlank(message = "O e-mail é de preenchimento obrigatório")
-    @Email
     private String email;
 
     @NotBlank(message = "A senha é de preenchimento obrigatório")
