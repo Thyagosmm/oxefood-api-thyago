@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.ifpe.oxefoodapithyago.modelo.acesso.Usuario;
 import br.com.ifpe.oxefoodapithyago.modelo.empresa.Empresa;
 import br.com.ifpe.oxefoodapithyago.modelo.empresa.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,9 +33,24 @@ public class EmpresaController {
     @PostMapping
     public ResponseEntity<Empresa> save(@RequestBody EmpresaRequest request) {
 
-        Empresa empresa = empresaService.save(request.build());
-        return new ResponseEntity<Empresa>(empresa, HttpStatus.CREATED);
-    }
+        Empresa empresa = request.build();
+
+		if (request.getPerfil() != null && !"".equals(request.getPerfil())) {
+
+			if (request.getPerfil().equals("EMPRESA_USER")) {
+
+				empresa.getUsuario().getRoles().add(Usuario.ROLE_EMPRESA_USER);
+
+			} else if (request.getPerfil().equals("EMPRESA_ADMIN")) {
+
+				empresa.getUsuario().getRoles().add(Usuario.ROLE_EMPRESA_ADMIN);
+			}
+		}
+
+		Empresa empresaCriada = empresaService.save(empresa);
+		return new ResponseEntity<Empresa>(empresaCriada, HttpStatus.CREATED);
+	}
+
 
     @Operation(summary = "Serviço responsável por listar todos as empresas do sistema.")
 

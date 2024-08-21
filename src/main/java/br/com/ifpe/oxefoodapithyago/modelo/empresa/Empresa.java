@@ -1,9 +1,13 @@
 package br.com.ifpe.oxefoodapithyago.modelo.empresa;
 
 import org.hibernate.annotations.SQLRestriction;
+
+import br.com.ifpe.oxefoodapithyago.modelo.acesso.Usuario;
 import br.com.ifpe.oxefoodapithyago.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +25,10 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Empresa extends EntidadeAuditavel {
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
 
     @Column(nullable = false)
     private String site;

@@ -1,5 +1,6 @@
 package br.com.ifpe.oxefoodapithyago.api.empresa;
 
+import br.com.ifpe.oxefoodapithyago.modelo.acesso.Usuario;
 import br.com.ifpe.oxefoodapithyago.modelo.empresa.Empresa;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -15,6 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class EmpresaRequest {
+
+    private String email;
+    private String password;
+    private String perfil;
 
     @NotBlank(message = "O site é de preenchimento obrigatório")
     @Size(max = 100, message = "O site deve ter no máximo 100 caracteres")
@@ -44,7 +49,8 @@ public class EmpresaRequest {
 
     public Empresa build() {
 
-        return Empresa.builder()
+        Empresa empresa = Empresa.builder()
+                .usuario(buildUsuario())
                 .site(site)
                 .cnpj(cnpj)
                 .inscricaoEstadual(inscricaoEstadual)
@@ -53,5 +59,17 @@ public class EmpresaRequest {
                 .fone(fone)
                 .foneAlternativo(foneAlternativo)
                 .build();
+
+        return empresa;
     }
+
+    public Usuario buildUsuario() {
+
+        return Usuario.builder()
+                .perfil(perfil)
+                .username(email)
+                .password(password)
+                .build();
+    }
+
 }
