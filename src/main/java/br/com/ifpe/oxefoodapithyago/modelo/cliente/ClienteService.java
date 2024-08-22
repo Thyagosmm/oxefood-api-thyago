@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.ifpe.oxefoodapithyago.modelo.acesso.UsuarioService;
+import br.com.ifpe.oxefoodapithyago.modelo.mensagens.EmailService;
 import br.com.ifpe.oxefoodapithyago.util.exception.ClienteException;
 import jakarta.transaction.Transactional;
 
@@ -22,6 +22,9 @@ public class ClienteService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private EmailService emailService;
+
     @Transactional
     public Cliente save(Cliente cliente) {
 
@@ -30,7 +33,9 @@ public class ClienteService {
         cliente.setHabilitado(Boolean.TRUE);
         cliente.setVersao(1L);
         cliente.setDataCriacao(LocalDate.now());
-        return repository.save(cliente);
+        Cliente clienteSalvo = repository.save(cliente);
+        emailService.enviarEmailConfirmacaoCadastroCliente(clienteSalvo);
+        return clienteSalvo;
     }
 
     @Transactional

@@ -30,35 +30,29 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Cliente extends EntidadeAuditavel  {
-    
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Usuario usuario;
+public class Cliente extends EntidadeAuditavel {
 
+  @ManyToOne
+  @JoinColumn(nullable = false)
+  private Usuario usuario;
 
-    @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
-    private List<EnderecoCliente> enderecos;
+  @OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<EnderecoCliente> enderecos;
 
-    @Column(nullable = false, length = 100)
-    private String nome;
-    
-    @Column(nullable = false)
-    private LocalDate dataNascimento;
-    
-    @Column(nullable = false, unique = true, length = 11)
-    private String cpf;
+  @Column(nullable = false, length = 100)
+  private String nome;
 
-    @Column(length = 11)
-    private String foneCelular;
+  @Column(nullable = false)
+  private LocalDate dataNascimento;
 
-    @Column(length = 11)
-    private String foneFixo;
+  @Column(nullable = false, unique = true, length = 11)
+  private String cpf;
 
-    public Cliente orElseThrow(Object object) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-    }
+  @Column(length = 11)
+  private String foneCelular;
+
+  @Column(length = 11)
+  private String foneFixo;
 
 }
